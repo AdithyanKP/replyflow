@@ -3,6 +3,7 @@ import validateBody from "../validations/index.js";
 import moment from "moment";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../constants/constants.js";
 
 const prisma = new PrismaClient();
 
@@ -37,8 +38,6 @@ export const userRegister = async (req, res) => {
 
 export const userLogin = async (req, res) => {
   await validateBody(req.body, "userLoginSchema");
-
-  const JWT_SECRET = process.env.JWT_SECRET;
   const { username, password } = req.body;
 
   // Find the user by username
@@ -56,6 +55,8 @@ export const userLogin = async (req, res) => {
   if (!isMatch) {
     return res.status(400).json({ error: "Invalid username or password" });
   }
+
+  console.log("JWT_SECRET",JWT_SECRET)
 
   // Create a JWT token
   const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1h" });
