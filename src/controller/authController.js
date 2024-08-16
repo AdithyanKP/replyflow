@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import validateBody from "../validations/index.js";
-import moment from "moment";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../constants/constants.js";
@@ -55,8 +54,6 @@ export const userLogin = async (req, res) => {
   if (!isMatch) {
     return res.status(400).json({ error: "Invalid username or password" });
   }
-
-  console.log("JWT_SECRET",JWT_SECRET)
 
   // Create a JWT token
   const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1h" });

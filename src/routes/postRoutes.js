@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { createPost, createComment,addReply,getComments} from "../controller/postController.js";
+import {
+  createPost,
+  createComment,
+  addReply,
+  getComments,
+  getParentLevelComments,
+} from "../controller/postController.js";
 import { authenticateToken } from "../middleware/auth.js";
 import { commentLimiter } from "../middleware/rateLimit.js";
 const router = Router();
@@ -18,11 +24,12 @@ router.post(
   addReply
 );
 
+router.get("/:postId/comments", authenticateToken, getComments);
+
 router.get(
-  "/:postId/comments",
+  "/:postId/comments/:commentId/expand",
   authenticateToken,
-  commentLimiter,
-  getComments
+  getParentLevelComments
 );
 
 export default router;

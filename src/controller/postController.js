@@ -1,7 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import validateBody from "../validations/index.js";
-import moment from "moment";
-import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
@@ -167,6 +165,81 @@ export const getComments = async (req, res) => {
     }));
 
     res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getParentLevelComments = async (req, res) => {
+  const { postId, commentId } = req.params;
+  const { page, pageSize } = req.query;
+
+  try {
+    // Check if the post exists
+    const post = await prisma.post.findUnique({
+      where: { id: parseInt(postId) },
+    });
+
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    // Check if the comment exists
+    const comment = await prisma.comment.findUnique({
+      where: { id: parseInt(commentId) },
+    });
+
+    if (!comment) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    const skip = (page - 1) * pageSize;
+    const take = parseInt(pageSize);
+
+    const replies = await prisma.comment.findMany({
+      where: {
+        postId: parseInt(postId),
+        id: parseInt(commentId),
+      },
+      skip: skip,
+      take: take,
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        replies: {
+          orderBy: { createdAt: "desc" },
+          take: 2,
+        },
+      },
+    });
+
+    // Count the total number of replies to this comment
+    const totalReplies = await prisma.comment.count({
+      where: {
+        parentCommentId: parseInt(commentId),
+      },
+    });
+
+    // BigInt fields to String for serialization
+    const response = replies.map((comment) => ({
+      id: comment.id.toString(),
+      text: comment.content,
+      createdAt: comment.createdAt,
+      postId: comment.postId.toString(),
+      parentCommentId: comment.parentCommentId
+        ? recommently.parentCommentId.toString()
+        : null,
+      replies: comment.replies.map((reply) => ({
+        id: reply.id.toString(),
+        text: reply.content,
+        createdAt: reply.createdAt,
+      })),
+      totalReplies: totalReplies.toString(),
+    }));
+
+    res.json(response);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
