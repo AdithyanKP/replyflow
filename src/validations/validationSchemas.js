@@ -15,7 +15,14 @@ const createPostSchema = vine.object({
 });
 
 const createCommentSchema = vine.object({
+  postId: vine.number(),
   text: vine.string(),
+});
+
+const addReplySchema = vine.object({
+  text: vine.string(),
+  commentId: vine.number(),
+  postId: vine.number(),
 });
 
 export default {
@@ -23,4 +30,5 @@ export default {
   userLoginSchema,
   createPostSchema,
   createCommentSchema,
+  addReplySchema,
 };
