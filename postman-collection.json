@@ -1,0 +1,287 @@
+{
+	"info": {
+		"_postman_id": "85640671-1452-43f2-a3c9-102933bc20f7",
+		"name": "multi_level_comment_system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26798091"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"testuser2\",\n  \"password\": \"password1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://multi-level-comment-system-jjre.onrender.com/api/auth/register",
+					"protocol": "https",
+					"host": [
+						"multi-level-comment-system-jjre",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://multi-level-comment-system-jjre.onrender.com/api/auth/login",
+					"protocol": "https",
+					"host": [
+						"multi-level-comment-system-jjre",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIzNzQxMzkxLCJleHAiOjE3MjM3NDQ5OTF9.2uqcthIyafz1R1rLJP4bDdWrXkx6BcZsQRh1AzS-Ed8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"content\": \"new post\",\n    \"userId\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://multi-level-comment-system-jjre.onrender.com/api/posts/create-post",
+					"protocol": "https",
+					"host": [
+						"multi-level-comment-system-jjre",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts",
+						"create-post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIzNzgwOTc1LCJleHAiOjE3MjM3ODQ1NzV9.EWKQ_DD7QFib8_vnEPe9OTJmCAI2PVPfuJG-IEANQjM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text\":\"nice\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://multi-level-comment-system-jjre.onrender.com/api/posts/3/comments",
+					"protocol": "https",
+					"host": [
+						"multi-level-comment-system-jjre",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts",
+						"3",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reply",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIzNzk1ODM1LCJleHAiOjE3MjM3OTk0MzV9.6aFqbhKlv0tCeDNz2QcLYP1rQtuBzgah6lh0c7bO_ck",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"postId\": 3,\n    \"commentId\": 4,\n    \"text\": \"second reply\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://multi-level-comment-system-jjre.onrender.com/api/posts/3/comments/4/reply",
+					"protocol": "https",
+					"host": [
+						"multi-level-comment-system-jjre",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts",
+						"3",
+						"comments",
+						"4",
+						"reply"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIzNzk1ODM1LCJleHAiOjE3MjM3OTk0MzV9.6aFqbhKlv0tCeDNz2QcLYP1rQtuBzgah6lh0c7bO_ck",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://multi-level-comment-system-jjre.onrender.com/api/posts/3/comments?sortBy=repliesCount&sortOrder=desc",
+					"protocol": "https",
+					"host": [
+						"multi-level-comment-system-jjre",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts",
+						"3",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "repliesCount"
+						},
+						{
+							"key": "sortOrder",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-parent-level-comments",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIzNzk1ODM1LCJleHAiOjE3MjM3OTk0MzV9.6aFqbhKlv0tCeDNz2QcLYP1rQtuBzgah6lh0c7bO_ck",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://multi-level-comment-system-jjre.onrender.com/api/posts/3/comments/4/expand?page=1&pageSize=10",
+					"protocol": "https",
+					"host": [
+						"multi-level-comment-system-jjre",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts",
+						"3",
+						"comments",
+						"4",
+						"expand"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
