@@ -39,4 +39,9 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: bash -c "npx prisma db push --schema=./src/prisma/schema.prisma && npm run start"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/comments?schema=public
+    command: >
+      sh -c "npx prisma generate --schema=./src/prisma/schema.prisma &&
+             npx prisma db push --schema=./src/prisma/schema.prisma &&
+             npm run start"
