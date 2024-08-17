@@ -1,47 +1,47 @@
-version: "3.8"
-services:
-  postgres:
-    image: postgres:latest
-    container_name: backend_postgres_container
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-    volumes:
-      - ./volume/pg-data:/var/lib/postgresql/data
-    ports:
-      - "5433:5432"
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "pg_isready",
-          "-h",
-          "localhost",
-          "-p",
-          "5432",
-          "-q",
-          "-U",
-          "postgres",
-        ]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-  backend-app:
-    build:
-      context: ./
-      # target: dev
-      dockerfile: Dockerfile
-    container_name: backend_container
-    ports:
-      - "4002:4002"
-      - "4001:4001"
-    depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/comments?schema=public
-    command: >
-      sh -c "npx prisma generate --schema=./src/prisma/schema.prisma &&
-             npx prisma db push --schema=./src/prisma/schema.prisma &&
-             npm run start"
+# version: "3.8"
+# services:
+#   postgres:
+#     image: postgres:latest
+#     container_name: backend_postgres_container
+#     environment:
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=postgres
+#       - POSTGRES_DB=postgres
+#     volumes:
+#       - ./volume/pg-data:/var/lib/postgresql/data
+#     ports:
+#       - "5433:5432"
+#     healthcheck:
+#       test:
+#         [
+#           "CMD",
+#           "pg_isready",
+#           "-h",
+#           "localhost",
+#           "-p",
+#           "5432",
+#           "-q",
+#           "-U",
+#           "postgres",
+#         ]
+#       interval: 5s
+#       timeout: 3s
+#       retries: 5
+#   backend-app:
+#     build:
+#       context: ./
+#       # target: dev
+#       dockerfile: Dockerfile
+#     container_name: backend_container
+#     ports:
+#       - "4002:4002"
+#       - "4001:4001"
+#     depends_on:
+#       postgres:
+#         condition: service_healthy
+#     environment:
+#       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/comments?schema=public
+#     command: >
+#       sh -c "npx prisma generate --schema=./src/prisma/schema.prisma &&
+#              npx prisma db push --schema=./src/prisma/schema.prisma &&
+#              npm run start"
