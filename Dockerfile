@@ -17,7 +17,6 @@ COPY src/prisma ./src/prisma
 # Copy the rest of the application code to the working directory
 COPY . .
 
-ENV DATABASE_URL=postgresql://comments_yeen_user:MD7qMVIqof3zVp9qywcbYdmR42bQKJZF@dpg-cr02r188fa8c73ctolq0-a.oregon-postgres.render.com/comments_yeen
 # Generate Prisma Client using the schema from the src directory
 RUN npx prisma generate --schema=./src/prisma/schema.prisma
 
