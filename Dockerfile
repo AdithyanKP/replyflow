@@ -10,11 +10,13 @@ COPY package*.json ./
 # Install the dependencies
 RUN npm install
 
+
 # Copy the rest of the application code to the working directory
 COPY . .
 
 # Set an environment variable 
 ENV PORT=4001
+ENV DATABASE_URL= postgresql://postgres:postgres@postgres:5432/comments?schema=public
 
 # Expose the port that the app will run on
 EXPOSE 4001
