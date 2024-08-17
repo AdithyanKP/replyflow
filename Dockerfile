@@ -2,6 +2,9 @@
 # Use the official Node.js LTS (Long Term Support) runtime as a base image
 FROM node:lts
 
+# Set the build-time argument for DATABASE_URL
+ARG DATABASE_URL
+
 # Set the working directory in the container
 WORKDIR /app
 
@@ -16,7 +19,7 @@ COPY src/prisma ./src/prisma
 
 # Copy the rest of the application code to the working directory
 COPY . .
-
+ENV DATABASE_URL=${DATABASE_URL}
 # Generate Prisma Client using the schema from the src directory
 RUN npx prisma generate --schema=./src/prisma/schema.prisma
 
