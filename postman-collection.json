@@ -126,7 +126,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"text\":\"nice\"\n}",
+					"raw": "{\n    \"text\": \"nice\",\n    \"postId\": 3\n}",
 					"options": {
 						"raw": {
 							"language": "json"

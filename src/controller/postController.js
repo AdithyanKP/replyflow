@@ -176,6 +176,12 @@ export const getParentLevelComments = async (req, res) => {
   const { page, pageSize } = req.query;
 
   try {
+    // Validate page and pageSize
+    if (isNaN(page) || isNaN(pageSize)) {
+      return res
+        .status(400)
+        .json({ error: "page and pageSize must be numbers" });
+    }
     // Check if the post exists
     const post = await prisma.post.findUnique({
       where: { id: parseInt(postId) },

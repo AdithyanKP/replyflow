@@ -39,6 +39,19 @@ export const userLogin = async (req, res) => {
   await validateBody(req.body, "userLoginSchema");
   const { username, password } = req.body;
 
+  // Check if username and password are not empty or null
+  if (!username || typeof username !== "string" || username.trim() === "") {
+    return res
+      .status(400)
+      .json({ error: "Username is required and cannot be empty." });
+  }
+
+  if (!password || typeof password !== "string" || password.trim() === "") {
+    return res
+      .status(400)
+      .json({ error: "Password is required and cannot be empty." });
+  }
+
   // Find the user by username
   const user = await prisma.user.findUnique({
     where: { username },
@@ -56,7 +69,9 @@ export const userLogin = async (req, res) => {
   }
 
   // Create a JWT token
-  const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign({ id: user.id }, JWT_SECRET || "multi_level_secret", {
+    expiresIn: "1h",
+  });
 
   res.json({ message: "Login successful", token });
 };
