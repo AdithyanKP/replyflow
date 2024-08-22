@@ -2,6 +2,9 @@
 # Multi Level Comment System
 This project provides a multi-level comment system API designed to handle nested comments with features such as creating posts, adding comments with nested replies, and pagination. The system is built with Node.js, Express, and PostgreSQL, and it is Dockerized for easy deployment. 
 
+
+![cover](/public/multi_level_comment.png)
+
 ## Caution
 Currently, the application is deployed on a free service. As a result, the free instance may spin down after periods of inactivity. This can cause delays in requests, potentially taking 50 seconds or more to respond.
 
