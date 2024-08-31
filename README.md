@@ -1,12 +1,10 @@
 
-# Multi Level Comment System
+# ReplyFlow
 This project provides a multi-level comment system API designed to handle nested comments with features such as creating posts, adding comments with nested replies, and pagination. The system is built with Node.js, Express, and PostgreSQL, and it is Dockerized for easy deployment. 
 
 
-![cover](/public/multi_level_comment.png)
+![cover](/public/replyflow.png)
 
-## Caution
-Currently, the application is deployed on a free service. As a result, the free instance may spin down after periods of inactivity. This can cause delays in requests, potentially taking 50 seconds or more to respond.
 
 ## Table of Contents
 
@@ -18,7 +16,7 @@ Currently, the application is deployed on a free service. As a result, the free 
 ## API S
 
 #### Register User
-- **Endpoint**: `POST https://multi-level-comment-system-jjre.onrender.com/api/auth/register`
+- **Endpoint**: `POST http://localhost:4001/api/auth/register`
 - **Request Body**:
   ```json
   {
@@ -27,7 +25,7 @@ Currently, the application is deployed on a free service. As a result, the free 
   }
 
 ### Login User
-- **Endpoint**: `POST https://multi-level-comment-system-jjre.onrender.com/api/auth/login`
+- **Endpoint**: `POST https://localhost:4001/api/auth/login`
 - **Request Body**:
   ```json
   {
@@ -39,7 +37,7 @@ Currently, the application is deployed on a free service. As a result, the free 
 #### The following APIs require an authorization token. You can obtain the JWT token from the login response.
 
 ### Create Post
-- **Endpoint**: `POST https://multi-level-comment-system-jjre.onrender.com/api/posts/create-post`
+- **Endpoint**: `POST https://localhost:4001/api/posts/create-post`
  - **Request Headers**:
 - ```http
    Authorization: Bearer <token>
@@ -50,7 +48,7 @@ Currently, the application is deployed on a free service. As a result, the free 
     "userId": 2
   }
  ### Create Comment
-- **Endpoint**: `POST https://multi-level-comment-system-jjre.onrender.com/api/posts/3/comments`
+- **Endpoint**: `POST http://localhost:4001/api/posts/3/comments`
 - **Request Headers**:
 - ```http
    Authorization: Bearer <token>
@@ -62,7 +60,7 @@ Currently, the application is deployed on a free service. As a result, the free 
   }
   
  ### Reply
-- **Endpoint**: `POST https://multi-level-comment-system-jjre.onrender.com/api/posts/3/comments/4/reply`
+- **Endpoint**: `POST http://localhost:4001/api/posts/3/comments/4/reply`
  - **Request Headers**:
 - ```http
    Authorization: Bearer <token>
@@ -77,14 +75,14 @@ Currently, the application is deployed on a free service. As a result, the free 
  - **Request Headers**:
 - ```http
    Authorization: Bearer <token>
- - **Endpoint**: `https://multi-level-comment-system-jjre.onrender.com/api/posts/3/comments?sortBy=repliesCount&sortOrder=desc`
+ - **Endpoint**: `http://localhost:4001/api/posts/3/comments?sortBy=repliesCount&sortOrder=desc`
  
   
   ### Get Parent Level Comments
  - **Request Headers**:
 - ```http
    Authorization: Bearer <token>
- - **Endpoint**: `https://multi-level-comment-system-jjre.onrender.com/api/posts/3/comments/4/expand?page=1&pageSize=10`
+ - **Endpoint**: `http://localhost:4001/api/posts/3/comments/4/expand?page=1&pageSize=10`
   
 ## Running Locally
 
