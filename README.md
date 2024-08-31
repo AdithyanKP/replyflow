@@ -12,6 +12,7 @@ This project provides a multi-level comment system API designed to handle nested
 2. **Running Locally**
 3. **Run Tests**
 4. **Postman Collection Json**
+5. **License**
 
 ## API S
 
@@ -106,3 +107,7 @@ This project provides a multi-level comment system API designed to handle nested
 For detailed API documentation and to test the endpoints, you can use the provided Postman collection. The ``postman-collection.json`` file is located in the root directory of this repository.
 
 This collection includes pre-configured requests for all available API endpoints, making it easier to explore and test the API directly in Postman.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
