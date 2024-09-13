@@ -1,10 +1,25 @@
-import { rateLimit } from "express-rate-limit";
+import client from "../redisClient.js";
 
-// Rate limiter: Max 5 comments per minute
+export const rateLimiter = (maxRequests, timeWindow) => {
+  return async (req, res, next) => {
+    const userId = req.user.id;
 
-export const commentLimiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 5, // Limit each IP to 5 requests per `window` (here, per minute)
-  message:
-    "Too many comments created from this account, please try again after a minute",
-});
+    const key = `rate-limit:${userId}`;
+
+    try {
+      const current = await client.incr(key);
+      if (current === 1) {
+        await client.expire(key, timeWindow);
+      }
+
+      if (current > maxRequests) {
+        return res.status(429).send("Too Many Requests");
+      }
+
+      next();
+    } catch (err) {
+      console.error("Redis error:", err);
+      res.status(500).send("Internal Server Error");
+    }
+  };
+};

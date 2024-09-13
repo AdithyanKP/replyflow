@@ -5,7 +5,6 @@ import postRoutes from "./routes/postRoutes.js";
 import cors from "cors";
 
 const app = express();
-
 const { json, urlencoded } = pkg;
 app.use(cors());
 app.use(json());
